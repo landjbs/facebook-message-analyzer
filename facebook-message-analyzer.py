@@ -72,16 +72,24 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
 
-# print(final_data_messages)
-# try:
-#     print(len(final_data_messages))
-# except: print('len not avaliable')
-#
-# df = pd.DataFrame(final_data_messages)
-#
+print(final_data_messages)
+try:
+    print(len(final_data_messages))
+except: print('len not avaliable')
+
+chats_select = (sorted_chats[1])
+
+print(chats_select.type())
+
+# df = pd.DataFrame.from_dict(chats_select)
+# print(df)
+
+
 # print(df.head())
 # print(df.describe())
 
+### PLOTTING FUNCITONS ###
+#
 # def plot_num_messages(chat_number):
 #     plotted_data = final_data_messages[chat_number]
 #     X = np.arange(len(plotted_data))
