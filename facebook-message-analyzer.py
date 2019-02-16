@@ -3,6 +3,7 @@ import json
 import numpy as np
 import pylab as pl
 import datetime
+import pandas as pd
 
 CURRENT_DIRECTORY = os.getcwd()
 NUMBER_TO_ANALYZE = 10000
@@ -17,7 +18,7 @@ def get_json_data(chat):
     except IOError:
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
-chats = os.listdir(CURRENT_DIRECTORY + "/messages/inbox")[:NUMBER_TO_ANALYZE]
+chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
 sorted_chats = []
 final_data_messages = {}
 final_data_times = {}
@@ -34,6 +35,8 @@ for chat in chats:
             sorted_chats.append((len(messages), chat, messages))
 
 sorted_chats.sort(reverse=True)
+
+print((sorted_chats[2])[0])
 
 print('Finished processing chats...')
 
@@ -69,44 +72,54 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
 
-def plot_num_messages(chat_number):
-    plotted_data = final_data_messages[chat_number]
-    X = np.arange(len(plotted_data))
-    pl.bar(X, list(plotted_data.values()), align='center', width=0.5, color = 'r', bottom = 0.3)
-    pl.xticks(X, plotted_data.keys(), rotation = 90)
-    pl.title('Number of Messages Sent')
-    pl.tight_layout()
-    pl.show()
+# print(final_data_messages)
+# try:
+#     print(len(final_data_messages))
+# except: print('len not avaliable')
+#
+# df = pd.DataFrame(final_data_messages)
+#
+# print(df.head())
+# print(df.describe())
 
-def plot_histogram_time(chat_number):
-    person_to_times = final_data_times[chat_number]
-    pl.xlabel('Time')
-    pl.ylabel('Number of Messages')
-    pl.title('# of Messages Over Time')
-    colors = ['b', 'r', 'c', 'm', 'y', 'k', 'w', 'g']
-    for i , person in enumerate(person_to_times):
-        plotted_data = person_to_times[person]
-        pl.hist(plotted_data, 100, alpha=0.3, label=person, facecolor=colors[i % len(colors)])
-    pl.legend()
-    pl.xticks(rotation=90)
-    pl.tight_layout()
-    pl.show()
-
-def plot_histogram_words(chat_number):
-    temp = {}
-    for person in final_data_words[chat_number]:
-        temp[person] = np.average(final_data_words[chat_number][person])
-    plotted_data = temp
-    X = np.arange(len(plotted_data))
-    pl.bar(X, list(plotted_data.values()), align='center', width=0.5, color = 'r', bottom = 0.3)
-    pl.xticks(X, plotted_data.keys(), rotation = 90)
-    pl.title('Average Word Count')
-    pl.tight_layout()
-    pl.show()
-
-def plot(chat_number):
-    plot_num_messages(chat_number)
-    plot_histogram_time(chat_number)
-    plot_histogram_words(chat_number)
-
-plot(4)
+# def plot_num_messages(chat_number):
+#     plotted_data = final_data_messages[chat_number]
+#     X = np.arange(len(plotted_data))
+#     pl.bar(X, list(plotted_data.values()), align='center', width=0.5, color = 'r', bottom = 0.3)
+#     pl.xticks(X, plotted_data.keys(), rotation = 90)
+#     pl.title('Number of Messages Sent')
+#     pl.tight_layout()
+#     pl.show()
+#
+# def plot_histogram_time(chat_number):
+#     person_to_times = final_data_times[chat_number]
+#     pl.xlabel('Time')
+#     pl.ylabel('Number of Messages')
+#     pl.title('# of Messages Over Time')
+#     colors = ['b', 'r', 'c', 'm', 'y', 'k', 'w', 'g']
+#     for i , person in enumerate(person_to_times):
+#         plotted_data = person_to_times[person]
+#         pl.hist(plotted_data, 100, alpha=0.3, label=person, facecolor=colors[i % len(colors)])
+#     pl.legend()
+#     pl.xticks(rotation=90)
+#     pl.tight_layout()
+#     pl.show()
+#
+# def plot_histogram_words(chat_number):
+#     temp = {}
+#     for person in final_data_words[chat_number]:
+#         temp[person] = np.average(final_data_words[chat_number][person])
+#     plotted_data = temp
+#     X = np.arange(len(plotted_data))
+#     pl.bar(X, list(plotted_data.values()), align='center', width=0.5, color = 'r', bottom = 0.3)
+#     pl.xticks(X, plotted_data.keys(), rotation = 90)
+#     pl.title('Average Word Count')
+#     pl.tight_layout()
+#     pl.show()
+#
+# def plot(chat_number):
+#     plot_num_messages(chat_number)
+#     plot_histogram_time(chat_number)
+#     plot_histogram_words(chat_number)
+#
+# plot(4)
