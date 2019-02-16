@@ -10,7 +10,7 @@ MESSAGE_THRESHOLD = 100
 
 def get_json_data(chat):
     try:
-        json_location = CURRENT_DIRECTORY + "/messages/inbox/" + chat + "/message.json"
+        json_location = CURRENT_DIRECTORY + "/messages/" + chat + "/message.json"
         with open(json_location) as json_file:
             json_data = json.load(json_file)
             return json_data
@@ -61,7 +61,7 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
         except KeyError:
             # happens for special cases like users who deactivated, unfriended, blocked
             invalid_message_count += 1
-    
+
     final_data_messages[i] = number_messages
     final_data_times[i] = person_to_times
     final_data_words[i] = number_words
