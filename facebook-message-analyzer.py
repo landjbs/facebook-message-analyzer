@@ -4,6 +4,7 @@ import numpy as np
 import pylab as pl
 import datetime
 import pandas as pd
+import string
 
 CURRENT_DIRECTORY = os.getcwd()
 NUMBER_TO_ANALYZE = 10000
@@ -18,17 +19,21 @@ def get_json_data(chat):
     except IOError:
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
-# def get_word_vectors(messages):
-
+def all_words_used(unfiltered_messages):
+    words_used = []
+    errors = 0
+    for chat in unfiltered_messages:
+        for message in chat:
+            try:
+                curMessage = (message['content']).split()
+                curMessage_processed = [(item.lower()) for item in curMessage]
+                words_used += curMessage_processed
+            except:
+                errors += 1
+        print(f"{errors} errors when reading messages")
+    return (set(words_used))
 
 chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
-
-try:
-    print(chats[0])
-    try:
-        print("0,0: ",chats[0][0])
-    except: print('no')
-except: print('no')
 
 sorted_chats = []
 chat_names = []
@@ -49,16 +54,17 @@ for chat in chats:
             chat_names.append(chat)
             number_messages.append(len(messages))
             unfiltered_messages.append(messages)
-            print(chat)
-            print(chatNum)
 
-# sorted_chats.sort(reverse=True)
 
-df = pd.DataFrame(index=(chat_names))
+
+
+print(set(words_used))
+
+df = pd.DataFrame(columns=['chat_names','words vector','number messages'])
+
 # sorted_chats[2][1][2]['content']
 #print(f"{'-'*80}\n{unfiltered_messages}\n{'-'*80}")
-
-# print(f"{'-'*80}\n{df}\n{'-'*80}")
+print(df)
 
 print('Finished processing chats...')
 #
