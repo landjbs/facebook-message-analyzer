@@ -18,6 +18,8 @@ def get_json_data(chat):
     except IOError:
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
+def 
+
 chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
 
 try:
@@ -28,6 +30,7 @@ try:
 except: print('no')
 
 sorted_chats = []
+chat_names = []
 final_data_messages = {}
 final_data_times = {}
 final_data_words = {}
@@ -40,49 +43,50 @@ for chat in chats:
     if json_data != None:
         messages = json_data["messages"]
         if len(messages) >= MESSAGE_THRESHOLD:
-            sorted_chats.append((len(messages), chat, messages))
+            sorted_chats.append((len(messages), messages))
+            chat_names.append(chat)
 
-sorted_chats.sort(reverse=True)
+# sorted_chats.sort(reverse=True)
 
-#df = pd.DataFrame(index=(sorted_chats[:])[1])
+df = pd.DataFrame(index=(chat_names))
 
-print(f"{'-'*80}\n{sorted_chats[1,:]}\n{'-'*80}")
+print(f"{'-'*80}\n{df.head()}\n{'-'*80}")
 
 # print(f"{'-'*80}\n{df}\n{'-'*80}")
 
 print('Finished processing chats...')
-
-for i, (messages, chat, messages) in enumerate(sorted_chats):
-    number_messages = {}
-    person_to_times = {}
-    number_words = {}
-
-    print(str(i) + " - " + str(len(messages)) + " messages - " + str(chat))
-
-    for message in messages:
-        try:
-            name = message["sender_name"]
-            time = message["timestamp_ms"]
-            message_content = message["content"]
-
-            number_messages[name] = number_messages.get(name, 0)
-            number_messages[name] += 1
-
-            person_to_times[name] = person_to_times.get(name, [])
-            person_to_times[name].append(datetime.datetime.fromtimestamp(time/1000.0))
-
-            number_words[name] = number_words.get(name, [])
-            number_words[name].append(len(message_content.split()))
-        except KeyError:
-            # happens for special cases like users who deactivated, unfriended, blocked
-            invalid_message_count += 1
-
-    final_data_messages[i] = number_messages
-    final_data_times[i] = person_to_times
-    final_data_words[i] = number_words
-
-print('Found ' + str(invalid_message_count) + ' invalid messages...')
-print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
+#
+# for i, (messages, chat, messages) in enumerate(sorted_chats):
+#     number_messages = {}
+#     person_to_times = {}
+#     number_words = {}
+#
+#     print(str(i) + " - " + str(len(messages)) + " messages - " + str(chat))
+#
+#     for message in messages:
+#         try:
+#             name = message["sender_name"]
+#             time = message["timestamp_ms"]
+#             message_content = message["content"]
+#
+#             number_messages[name] = number_messages.get(name, 0)
+#             number_messages[name] += 1
+#
+#             person_to_times[name] = person_to_times.get(name, [])
+#             person_to_times[name].append(datetime.datetime.fromtimestamp(time/1000.0))
+#
+#             number_words[name] = number_words.get(name, [])
+#             number_words[name].append(len(message_content.split()))
+#         except KeyError:
+#             # happens for special cases like users who deactivated, unfriended, blocked
+#             invalid_message_count += 1
+#
+#     final_data_messages[i] = number_messages
+#     final_data_times[i] = person_to_times
+#     final_data_words[i] = number_words
+#
+# print('Found ' + str(invalid_message_count) + ' invalid messages...')
+# print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
 
 ### PLOTTING FUNCITONS ###
 #
