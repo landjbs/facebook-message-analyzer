@@ -18,7 +18,8 @@ def get_json_data(chat):
     except IOError:
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
-def 
+# def get_word_vectors(messages):
+
 
 chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
 
@@ -31,6 +32,8 @@ except: print('no')
 
 sorted_chats = []
 chat_names = []
+number_messages = []
+unfiltered_messages = []
 final_data_messages = {}
 final_data_times = {}
 final_data_words = {}
@@ -43,14 +46,17 @@ for chat in chats:
     if json_data != None:
         messages = json_data["messages"]
         if len(messages) >= MESSAGE_THRESHOLD:
-            sorted_chats.append((len(messages), messages))
             chat_names.append(chat)
+            number_messages.append(len(messages))
+            unfiltered_messages.append(messages)
+            print(chat)
+            print(chatNum)
 
 # sorted_chats.sort(reverse=True)
 
 df = pd.DataFrame(index=(chat_names))
-
-print(f"{'-'*80}\n{df.head()}\n{'-'*80}")
+# sorted_chats[2][1][2]['content']
+#print(f"{'-'*80}\n{unfiltered_messages}\n{'-'*80}")
 
 # print(f"{'-'*80}\n{df}\n{'-'*80}")
 
