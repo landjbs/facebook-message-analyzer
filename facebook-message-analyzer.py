@@ -19,6 +19,18 @@ def get_json_data(chat):
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
 chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
+
+try:
+    print(chats[0])
+    try:
+        print("0,0: ",chats[0][0])
+    except: print('no')
+except: print('no')
+
+chats_DF = pd.DataFrame(index=chats)
+
+print(chats_DF)
+
 sorted_chats = []
 final_data_messages = {}
 final_data_times = {}
@@ -71,15 +83,6 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
 
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
-
-print(final_data_messages)
-try:
-    print(len(final_data_messages))
-except: print('len not avaliable')
-
-chats_select = (sorted_chats[1])
-
-print(chats_select.type())
 
 # df = pd.DataFrame.from_dict(chats_select)
 # print(df)
