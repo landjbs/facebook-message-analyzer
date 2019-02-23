@@ -20,6 +20,9 @@ def get_json_data(chat):
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
 def all_words_used(unfiltered_messages):
+    """
+    Function to find set of all words used in all messages
+    """
     words_used = []
     errors = 0
     for chat in unfiltered_messages:
