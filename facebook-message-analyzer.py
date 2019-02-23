@@ -33,7 +33,7 @@ def all_words_used(unfiltered_messages):
                 words_used += curMessage_processed
             except:
                 errors += 1
-        print(f"{errors} errors when reading messages")
+    print(f"{errors} errors when reading messages")
     return (set(words_used))
 
 chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
@@ -59,9 +59,22 @@ for chat in chats:
             unfiltered_messages.append(messages)
 
 
+words_used = (all_words_used(unfiltered_messages))
 
-
-print(set(words_used))
+#def get_word_vector(unfiltered_messages, words_used):
+word_matrix = np.zeros((len(unfiltered_messages), len(words_used)))
+for chatNum, chat in enumerate(unfiltered_messages):
+    for message in chat:
+        try:
+            curMessage = (message['content']).split()
+            curMessage_processed = [(item.lower()) for item in curMessage]
+            for message_word in curMessage_processed:
+                for wordNum, used_word in enumerate(words_used):
+                    if message_word == used_word:
+                        word_matrix[chatNum][wordNum] += 1
+        except:
+            errors += 1
+print(word_matrix)
 
 df = pd.DataFrame(columns=['chat_names','words vector','number messages'])
 
