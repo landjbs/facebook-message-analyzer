@@ -27,10 +27,6 @@ try:
     except: print('no')
 except: print('no')
 
-chats_DF = pd.DataFrame(index=chats)
-
-print(chats_DF)
-
 sorted_chats = []
 final_data_messages = {}
 final_data_times = {}
@@ -48,7 +44,11 @@ for chat in chats:
 
 sorted_chats.sort(reverse=True)
 
-print((sorted_chats[2])[0])
+#df = pd.DataFrame(index=(sorted_chats[:])[1])
+
+print(f"{'-'*80}\n{sorted_chats[1,:]}\n{'-'*80}")
+
+# print(f"{'-'*80}\n{df}\n{'-'*80}")
 
 print('Finished processing chats...')
 
@@ -83,13 +83,6 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
 
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
-
-# df = pd.DataFrame.from_dict(chats_select)
-# print(df)
-
-
-# print(df.head())
-# print(df.describe())
 
 ### PLOTTING FUNCITONS ###
 #
