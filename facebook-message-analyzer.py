@@ -24,8 +24,8 @@ def process_message(message):
     Split message from dict into list of lowercase words
     """
     curMessage = (message['content']).split()
-    cleanedWord = lambda item : item.lower().translate(None, string.punctuation)
-    curMessage_processed = [cleanedWord(item) for item in curMessage]
+    cleanWord = lambda item : item.lower() # clean this up more, eg. rem punctuation
+    curMessage_processed = [cleanWord(item) for item in curMessage]
     return curMessage_processed
 
 def all_words_used(unfiltered_messages):
@@ -69,4 +69,4 @@ for chat_num, chat in enumerate(unfiltered_messages):
     for message in chat:
         processed_message = process_message(message)
         for word in processed_message:
-            print(word)
+            print(word,end="|")
