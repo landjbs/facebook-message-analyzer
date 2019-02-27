@@ -55,6 +55,8 @@ invalid_message_count = 0
 
 print('Analyzing ' + str(min(NUMBER_TO_ANALYZE, len(chats))) + ' chats...')
 
+print("Running...")
+
 # load chats into lists
 for chat in chats:
     json_data = get_json_data(chat)
@@ -81,7 +83,6 @@ for chat_num, chat in enumerate(unfiltered_messages):
                         word_uses[word_num] += 1
                 except:
                     error += 1
+print("Num Errors:", error)
 
-print(error)
-
-print(word_uses)
+print(f"Word Uses Vector created with shape {word_uses.shape()}\n Printed:\n {word_uses}")
