@@ -70,7 +70,9 @@ word_uses = (np.zeros(len(words_used)),)
 for chat_num, chat in enumerate(unfiltered_messages):
     for message in chat:
         processed_message = process_message(message)
-        for curWord in processed_message:
+        for cur_word in processed_message:
             for word_num, use_word in enumerate(word_uses):
-                if curWord == useWord:
-                    word_uses[c]
+                if cur_word == use_word:
+                    word_uses[word_num] += 1
+
+print(word_uses)
