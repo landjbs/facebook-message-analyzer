@@ -40,6 +40,8 @@ sorted_chats.sort(reverse=True)
 
 print('Finished processing chats...')
 
+clean_word = lambda word : (word.lower()).replace("?","")
+
 for i, (messages, chat, messages) in enumerate(sorted_chats):
     number_messages = {}
     person_to_times = {}
@@ -63,8 +65,7 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
             person_to_times[name].append(datetime.datetime.fromtimestamp(time/1000.0))
 
             number_words[name] = number_words.get(name, [])
-            messageWords = message_content.split()
-            print(messageWords)
+            messageWords = [clean_word(word) for word in message_content.split()]
             number_words[name].append(len(messageWords))
             words_used += messageWords
         except KeyError:
@@ -74,6 +75,8 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
     final_data_messages[i] = number_messages
     final_data_times[i] = person_to_times
     final_data_words[i] = number_words
+
+print(words_used)
 
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
@@ -117,5 +120,3 @@ def plot(chat_number):
     plot_num_messages(chat_number)
     plot_histogram_time(chat_number)
     plot_histogram_words(chat_number)
-
-plot(3)
