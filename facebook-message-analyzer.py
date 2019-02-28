@@ -20,6 +20,9 @@ def get_json_data(chat):
     except IOError:
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
+def  clean_word(word):
+    return (word.lower()).replace("?","")
+
 # ANALYZE CHATS
 chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
 sorted_chats = []
@@ -43,7 +46,6 @@ sorted_chats.sort(reverse=True)
 
 print('Finished processing chats...')
 
-clean_word = lambda word : (word.lower()).replace("?","")
 
 for i, (messages, chat, messages) in enumerate(sorted_chats):
     number_messages = {}
