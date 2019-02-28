@@ -20,7 +20,7 @@ def get_json_data(chat):
     except IOError:
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
-def  clean_word(word):
+def clean_word(word):
     return (word.lower()).replace("?","")
 
 # ANALYZE CHATS
@@ -82,6 +82,7 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
 
+# PLOTTING FUNCTIONS
 def plot_num_messages(chat_number):
     plotted_data = final_data_messages[chat_number]
     X = np.arange(len(plotted_data))
@@ -121,3 +122,8 @@ def plot(chat_number):
     plot_num_messages(chat_number)
     plot_histogram_time(chat_number)
     plot_histogram_words(chat_number)
+
+# CHECK AGAINST MODEL
+def check_against_model():
+    input = input("Send me a sample message:\n")
+    print([clean_word(word) for word in input.split()])
