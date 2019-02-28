@@ -1,3 +1,4 @@
+# IMPORTS AND VARIABLES
 import os
 import json
 import numpy as np
@@ -9,6 +10,7 @@ CURRENT_DIRECTORY = os.getcwd()
 NUMBER_TO_ANALYZE = 5000
 MESSAGE_THRESHOLD = 100
 
+# FIRST DEFINITIONS
 def get_json_data(chat):
     try:
         json_location = CURRENT_DIRECTORY + "/messages/" + chat + "/message.json"
@@ -18,6 +20,7 @@ def get_json_data(chat):
     except IOError:
         pass # some things the directory aren't messages (DS_Store, stickers_used, etc.)
 
+# ANALYZE CHATS
 chats = os.listdir(CURRENT_DIRECTORY + "/messages/")[:NUMBER_TO_ANALYZE]
 sorted_chats = []
 final_data_messages = {}
@@ -50,8 +53,6 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
 
     print(str(i) + " - " + str(len(messages)) + " messages - " + str(chat))
 
-    print(messages)
-
     for message in messages:
         try:
             name = message["sender_name"]
@@ -75,8 +76,6 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
     final_data_messages[i] = number_messages
     final_data_times[i] = person_to_times
     final_data_words[i] = number_words
-
-print(words_used)
 
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
