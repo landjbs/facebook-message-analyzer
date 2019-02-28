@@ -82,6 +82,8 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
 print('Found ' + str(invalid_message_count) + ' invalid messages...')
 print('Found ' + str(len(sorted_chats)) + ' chats with ' + str(MESSAGE_THRESHOLD) + ' messages or more')
 
+
+
 # PLOTTING FUNCTIONS
 def plot_num_messages(chat_number):
     plotted_data = final_data_messages[chat_number]
