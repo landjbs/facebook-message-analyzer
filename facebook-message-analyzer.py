@@ -83,6 +83,7 @@ for chat_num, chat in enumerate(unfiltered_messages):
                         word_uses[word_num] += 1
                 except:
                     error += 1
+                    
 print("Num Errors:", error)
 
 print(f"Word Uses Vector created with shape {word_uses.shape()}\n Printed:\n {word_uses}")
