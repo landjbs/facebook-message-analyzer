@@ -106,9 +106,9 @@ def check_against_model():
     predictionDF = pd.DataFrame(input_vector)
     result = model.predict(predictionDF.T)
     if result[0][1] > result[0][0]:
-        print("I think we're likely to have lots of messages!")
+        print(f"I think we're likely to have lots of messages! Confidence: {result[0][1]}%")
     else:
-        print("We probably don't have many messages :(")
+        print(f"We probably don't have many messages :( Confidence: {result[0][0]}%")
 
 while True:
         check_against_model()
