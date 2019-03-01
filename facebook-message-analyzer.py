@@ -64,7 +64,7 @@ for i, (messages, chat, messages) in enumerate(sorted_chats):
             invalid_message_count += 1
 # make set of words used more than 10 and less than 400 times
 times_used = Counter(words_used)
-significant_words = set([k for k,v in times_used.items() if v > 10 and v < 200])
+significant_words = set([k for k,v in times_used.items() if v > 10 and v < 800])
 
 # matrix to hold word vector for each message
 usage_matrix = np.zeros((len(message_words), len(significant_words)))
@@ -105,8 +105,7 @@ def check_against_model():
                 input_vector[count] = 1
     predictionDF = pd.DataFrame(input_vector)
     result = model.predict(predictionDF.T)
-    print(result)
-    if result[1] > result[0]:
+    if result[0][1] > result[0][0]:
         print("I think we're likely to have lots of messages!")
     else:
         print("We probably don't have many messages :(")
