@@ -106,10 +106,10 @@ def check_against_model(normalization=0.05):
     predictionDF = pd.DataFrame(input_vector)
     result = model.predict(predictionDF.T)
     if (result[0][1]-normalization) > result[0][0]:
-        print(f"\nI think we're likely to have lots of messages!\nConfidence: {round((result[0][1])*100, 2)} %\n")
+        print(f"\nI think we're likely to have lots of messages!\nConfidence: {round((result[0][1])*100, 2)} %\n",end="")
     else:
-        print(f"\nWe probably don't have many messages :(\nConfidence: {round((result[0][0])*100, 2)} %\n")
+        print(f"\nWe probably don't have many messages :(\nConfidence: {round((result[0][0])*100, 2)} %\n",end="")
 
 while True:
         check_against_model(normalization=0.1)
-        print('-'*80 ) 
+        print('-'*40)
