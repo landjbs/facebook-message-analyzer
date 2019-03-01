@@ -110,4 +110,5 @@ def check_against_model():
     else:
         print("We probably don't have many messages :(")
 
-check_against_model()
+while True:
+        check_against_model()
