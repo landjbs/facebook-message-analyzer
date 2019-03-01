@@ -96,7 +96,7 @@ model.fit(df, to_categorical(friend_vector), epochs=3)
 
 # CHECK AGAINST MODEL
 def check_against_model(normalization=0.05):
-    user_words = input("Send me a sample message:\n")
+    user_words = input("\nSend me a sample message:\n")
     cleaned_input = [clean_word(word) for word in user_words.split()]
     input_vector = np.zeros((len(significant_words)),)
     for word in cleaned_input:
@@ -106,10 +106,10 @@ def check_against_model(normalization=0.05):
     predictionDF = pd.DataFrame(input_vector)
     result = model.predict(predictionDF.T)
     if (result[0][1]-normalization) > result[0][0]:
-        print(f"\nI think we're likely to have lots of messages!\nConfidence: {round((result[0][1])*100, 2)} %\n",end="")
+        print(f"\nI think we're likely to have lots of messages!\nBelief Strength: {round((result[0][1])*100, 2)} %\n",end="")
     else:
-        print(f"\nWe probably don't have many messages :(\nConfidence: {round((result[0][0])*100, 2)} %\n",end="")
+        print(f"\nWe probably don't have many messages :(\nBelief Strength: {round((result[0][0])*100, 2)} %\n",end="")
 
 while True:
         check_against_model(normalization=0.1)
-        print('-'*40,end="\n")
+        print('-'*40)
