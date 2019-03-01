@@ -112,4 +112,4 @@ def check_against_model(normalization=0.05):
 
 while True:
         check_against_model(normalization=0.1)
-        print('-'*40)
+        print('-'*40,end="\n")
