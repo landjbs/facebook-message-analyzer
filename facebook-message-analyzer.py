@@ -95,7 +95,7 @@ model.compile(optimizer='rmsprop',
 model.fit(df, to_categorical(friend_vector), epochs=3)
 
 # CHECK AGAINST MODEL
-def check_against_model():
+def check_against_model(normalization=5):
     user_words = input("Send me a sample message:\n")
     cleaned_input = [clean_word(word) for word in user_words.split()]
     input_vector = np.zeros((len(significant_words)),)
@@ -105,10 +105,10 @@ def check_against_model():
                 input_vector[count] = 1
     predictionDF = pd.DataFrame(input_vector)
     result = model.predict(predictionDF.T)
-    if result[0][1] > result[0][0]:
+    if (result[0][1]-normalization) > result[0][0]:
         print(f"I think we're likely to have lots of messages! Confidence: {result[0][1]}%")
     else:
         print(f"We probably don't have many messages :( Confidence: {result[0][0]}%")
 
 while True:
-        check_against_model()
+        check_against_model(normalization=10)
